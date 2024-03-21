@@ -53,7 +53,3 @@ class Container:
         return(f"\nName: {self.name} \nCapacity: {self.capacity}\n")
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-test = Item("cheese")
-print(test.info())
-test.rename("Egg")
-print(test.info())
