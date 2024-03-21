@@ -1,3 +1,5 @@
+# Reference being used is: https://www.dndbeyond.com/sources/basic-rules/equipment
+
 class Item:
 
     def __init__(self, name: str, type: str="-", cost: int=0, weight: float=0.0, tags: str="-", description: str="-"):
@@ -9,7 +11,10 @@ class Item:
         self.description = description
 
     def info(self):
-        return(f"\nName: {self.name} \nType: {self.type} \nCost: {self.cost}GP \nWeight: {self.weight} lbs \ntags: {self.tags} \ndescription: {self.description}")
+        return(f"\nName: {self.name} \nType: {self.type} \nCost: {self.cost} GP \nWeight: {self.weight} lbs \ntags: {self.tags} \ndescription: {self.description}")
+    
+    def rename(self, name: str):
+        self.name = input("Enter new name: ")
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
@@ -37,3 +42,18 @@ class Weapon(Item):
         return(f"{super().info()} \nDamage: {self.dmg} \nProperties: {self.properties}\n")
     
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+class Container:
+    
+    def __init__(self, name: str, capacity: str):
+        self.name = name
+        self.capacity = capacity
+
+    def info(self):
+        return(f"\nName: {self.name} \nCapacity: {self.capacity}\n")
+
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+test = Item("cheese")
+print(test.info())
+test.rename("Egg")
+print(test.info())
