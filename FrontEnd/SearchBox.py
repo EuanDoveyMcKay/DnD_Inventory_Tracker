@@ -1,5 +1,4 @@
 import customtkinter as tk
-from tkinter import font
 
 tk.set_appearance_mode("dark")
 tk.set_default_color_theme("dark-blue")
@@ -22,6 +21,10 @@ ItemList = tk.CTkScrollableFrame(   master=SearchFrame,
 ItemRecordFrame = tk.CTkFrame(  master=ItemList,
                                 fg_color="grey10")
 
+# The "Search frame" is essentially the master of this component, it is the top most frame (in that it has no parents / isn't packed into any other frames besides root).
+# This is for organisation purposes so that each component does not clash with each other...
+# ...every component has their own frame, which is then put into this master frame. So it appears as though they are all in one box, but really they all have their own individual space.
+
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
 SearchEntry = tk.CTkEntry(  master=SearchFrame,
@@ -34,7 +37,7 @@ SearchEntry = tk.CTkEntry(  master=SearchFrame,
                             border_color="grey30",
                             border_width=2)
 
-def MakeItemRecord(text: str="Unnamed"):
+def MakeItemRecord(text: str="Unnamed"): # Note to self: The "ItemRecordFrame" is all the stuff for one instance of an item, and all of these are put into the List frame (the scrollable one)
     return tk.CTkLabel( master=ItemRecordFrame,
                         font=TextFont,
                         justify="center",
@@ -45,9 +48,9 @@ TestItem = MakeItemRecord("Test")
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
 SearchEntry.pack(padx=12, pady=(10,15))
-ItemList.pack(padx=15, pady=(0,20))
 TestItem.pack()
 
-SearchFrame.pack()
 ItemRecordFrame.pack()
+ItemList.pack(padx=15, pady=(0,20))
+SearchFrame.pack()
 root.mainloop()

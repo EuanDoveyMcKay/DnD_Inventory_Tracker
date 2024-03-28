@@ -1,5 +1,4 @@
 import customtkinter as tk
-from tkinter import font
 
 tk.set_appearance_mode("dark")
 tk.set_default_color_theme("dark-blue")
@@ -17,6 +16,12 @@ FilterFrame = tk.CTkFrame(  master=root,
 
 CheckboxFrame = tk.CTkFrame(    master=FilterFrame,
                                 fg_color="gray10")
+
+# The "filter frame" is essentially the master of this component, it is the top most frame (in that it has no parents / isn't packed into any other frames besides root).
+
+# The checkbox frame is the one that contains the ticky boxes seen on screen. Instead of griding them into the master frame, they are gridded into this, and then this is packed into the
+# master frame. This is better as it allows them to be rearranged seperately without considering tons of other things like the master title, as they have their own frame.
+# Set the checkbox frame fg colour to a contrasting colour like red to see what I mean. 
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
@@ -45,11 +50,13 @@ ContainerFilter = tk.CTkCheckBox(   master=CheckboxFrame,
 
 FilterTitle.pack(padx=25,pady=(5,20))
 
+### Everything in the following chunk is the checkbox frame organisation
 ItemFilter.grid(row=0, column=0, padx=(10,0), pady=(0,20))
 WeaponFilter.grid(row=0, column=1, padx=(0,10), pady=(0,20))
 ArmourFilter.grid(row=1, column=0, padx=(10,0), pady=(0,20))
 ContainerFilter.grid(row=1,column=1, padx=(0,10), pady=(0,20))
 CheckboxFrame.pack(padx=20,pady=(0,10))
+###
 
 FilterFrame.pack()
 root.mainloop()
