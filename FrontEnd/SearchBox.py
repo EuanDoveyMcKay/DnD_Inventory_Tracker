@@ -44,17 +44,20 @@ def MakeItemRecord(text: str="Unnamed"): # Note to self: The "ItemRecordFrame" i
                         justify="center",
                         text=text)
     
-    ItemDownBtn = tk.CTkButton(master=ItemRecordFrame,
-                               font=TextFont,
-                               width=15,
-                               height=10,
-                               fg_color="grey10",
-                               hover_color="grey10",
-                               text="v")
+    def ResetCounter():
+        ItemCounter.configure(text = 0)
 
-    ItemCounter = tk.CTkLabel(master=ItemRecordFrame,
+    ItemCounter = tk.CTkButton(master=ItemRecordFrame,
                             font=TextFont,
-                            text=0)
+                            text=0,
+                            fg_color="grey10",
+                            hover_color="grey10",
+                            width=20,
+                            height=10,
+                            command=ResetCounter)
+    
+    def UpButtonClicked():
+        ItemCounter.configure(text = ItemCounter.cget("text")+1)
     
     ItemUpBtn = tk.CTkButton(master=ItemRecordFrame,
                                font=tk.CTkFont(family="Office", size=20),
@@ -62,7 +65,21 @@ def MakeItemRecord(text: str="Unnamed"): # Note to self: The "ItemRecordFrame" i
                                height=10,
                                fg_color="grey10",
                                hover_color="grey10",
-                               text="^",)
+                               text="^",
+                               command=UpButtonClicked)
+    
+    def DownButtonClicked():
+        if ItemCounter.cget("text") != 0:
+            ItemCounter.configure(text = ItemCounter.cget("text")-1)
+    
+    ItemDownBtn = tk.CTkButton(master=ItemRecordFrame,
+                               font=TextFont,
+                               width=15,
+                               height=10,
+                               fg_color="grey10",
+                               hover_color="grey10",
+                               text="v",
+                               command= DownButtonClicked)
     
     ItemAddBtn = tk.CTkButton(master=ItemRecordFrame,
                        font=TextFont,
@@ -81,8 +98,15 @@ def MakeItemRecord(text: str="Unnamed"): # Note to self: The "ItemRecordFrame" i
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
-SearchEntry.pack(padx=12, pady=(10,15))
+def Main():
+    SearchEntry.pack(padx=12, pady=(10,15))
 
-ItemList.pack(padx=15, pady=(0,20))
-SearchFrame.pack()
-root.mainloop()
+    for i in range(50):
+        MakeItemRecord(f"Item {i}")
+
+    ItemList.pack(padx=15, pady=(0,20))
+    SearchFrame.pack()
+    root.mainloop()
+
+if __name__ == "__main__":
+    Main()
