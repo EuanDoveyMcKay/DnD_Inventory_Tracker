@@ -2,7 +2,7 @@
 
 class Item:
 
-    def __init__(self, name: str, type: str="-", cost: int=0, weight: float=0.0, tags: str="-", description: str="-"):
+    def __init__(self, name: str, type: str="-", cost: int=0, weight: float=0.0, tags: list=[], description: str="-"):
         self.name = name
         self.type = type
         self.cost = cost
@@ -10,23 +10,34 @@ class Item:
         self.tags = tags
         self.description = description
 
-    def info(self):
-        return(f"\nName: {self.name} \nType: {self.type} \nCost: {self.cost} GP \nWeight: {self.weight} lbs \ntags: {self.tags} \ndescription: {self.description}")
+    def info(self, PrintIt=True):
+        StringOfTags = ", ".join(self.tags)
+        if PrintIt == True:
+            print(f"\nName: {self.name} \nType: {self.type} \nCost: {self.cost} GP \nWeight: {self.weight} lbs \ntags: {StringOfTags} \ndescription: {self.description}")
+        else:
+            return(f"\nName: {self.name} \nType: {self.type} \nCost: {self.cost} GP \nWeight: {self.weight} lbs \ntags: {self.tags} \ndescription: {self.description}")
     
-    def Rename(self, name: str):
-        self.name = name
+    def Rename(self, NewName: str):
+        self.name = NewName
 
-    def Cost(self, cost: int):
-        self.cost = cost
+    def Cost(self, NewCost: int):
+        self.cost = NewCost
 
-    def Weight(self, weight: float):
-        self.weight = weight
+    def Weight(self, NewWeight: float):
+        self.weight = NewWeight
 
-    def Tags(self, tags: str):
-        self.tags = tags
+    def AddTags(self, NewTags: list):
+        self.tags.append(NewTags)
+
+    def RemoveTags(self, TagsToRemove: list):
+        if TagsToRemove.index("All") != -1 or TagsToRemove.index("all") != -1:
+            self.tags = []
+        else:
+            for tag in TagsToRemove:
+                self.tags.remove(tag)
     
-    def Desc(self, description: str):
-        self.description = description
+    def NewDesc(self, NewDescription: str):
+        self.description = NewDescription
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
@@ -38,35 +49,49 @@ class Armour(Item):
         self.strength = strength
         self.stealth = stealth
     
-    def info(self):
-        return(f"{super().info()} \nAC: {self.AC} \nstrength: {self.strength} \nstealth: {self.stealth}\n")
+    def info(self, PrintIt = True):
+        if PrintIt == True:
+            print(f"{super().info()} \nAC: {self.AC} \nstrength: {self.strength} \nstealth: {self.stealth}\n")
+        else:
+            return(f"{super().info()} \nAC: {self.AC} \nstrength: {self.strength} \nstealth: {self.stealth}\n")
     
-    def ChangeAC(self, AC: str):
-        self.AC = AC
+    def ChangeAC(self, NewAC: str):
+        self.AC = NewAC
 
-    def Strength(self, strength: int):
-        self.strength = strength
+    def Strength(self, NewStrength: int):
+        self.strength = NewStrength
 
-    def Stealth(self, stealth: str):
-        self.stealth = stealth
+    def Stealth(self, NewStealth: str):
+        self.stealth = NewStealth
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
 class Weapon(Item):
 
-    def __init__(self, name: str, type: str = "-", cost: int = 0, weight: float = 0, tags: str = "-", description: str = "-", damage: str = "-", properties: str = "-"):
+    def __init__(self, name: str, type: str = "-", cost: int = 0, weight: float = 0, tags: str = "-", description: str = "-", damage: str = "-", properties: list = []):
         super().__init__(name, type, cost, weight, tags, description)
         self.damage = damage
         self.properties = properties
 
-    def info(self):
-        return(f"{super().info()} \nDamage: {self.dmg} \nProperties: {self.properties}\n")
+    def info(self, PrintIt = True):
+        StringOfProperties = ", ".join(self.properties)
+        if PrintIt == True:
+            print(f"{super().info()} \nDamage: {self.damage} \nProperties: {StringOfProperties}\n")
+        else:
+            return(f"{super().info()} \nDamage: {self.damage} \nProperties: {StringOfProperties}\n")
     
-    def Damage(self, damage: str):
-        self.damage = damage
+    def Damage(self, NewDamage: str):
+        self.damage = NewDamage
 
-    def Properties(self, properties: str):
-        self.properties = properties
+    def AddProperties(self, NewProperties: list):
+        self.properties.append(NewProperties)
+
+    def RemoveProperties(self, PropertiesToRemove: list):
+        if PropertiesToRemove.index("All") != -1 or PropertiesToRemove.index("all") != -1:
+            self.properties = []
+        else:
+            for property in PropertiesToRemove:
+                self.properties.remove(property)
     
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
@@ -76,8 +101,11 @@ class Container:
         self.name = name
         self.capacity = capacity
 
-    def info(self):
-        return(f"\nName: {self.name} \nCapacity: {self.capacity}\n")
+    def info(self, PrintIt = True):
+        if PrintIt == True:
+            print(f"\nName: {self.name} \nCapacity: {self.capacity}\n")
+        else:
+            return(f"\nName: {self.name} \nCapacity: {self.capacity}\n")
     
     def Rename(self, name: str):
         self.name = name
