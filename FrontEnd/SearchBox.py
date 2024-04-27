@@ -61,7 +61,6 @@ def MakeItemRecord(text: str="Unnamed"): # Note to self: The "ItemRecordFrame" i
 
     ItemName = tk.CTkLabel( master=ItemRecordFrame,
                             font=TextFont,
-                            justify="center",
                             text=text)
 
     ItemCounter = tk.CTkButton( master=ItemRecordFrame,
@@ -138,7 +137,7 @@ def Main():
     root.mainloop()
 
 if __name__ == "__main__":
-
-    for i in range(50):
-        OriginalItems.append(MakeItemRecord(f"Item {i}")) # Appends the name of the Item to the list and adds it into the scrollable box (see comment about what this func returns)
+#    for i in range(50):
+#        OriginalItems.append(MakeItemRecord(f"Item {i}"))  --> Here for testing purposes BUT do note how it's done, you need to ensure the new item is added to the o.g. list when it is
+#                                                               added to the compendium
     Main()
